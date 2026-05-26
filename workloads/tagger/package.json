@@ -1,22 +1,26 @@
 {
-    "name": "tagger-mcp-server",
-    "version": "0.1.0",
-    "private": true,
-    "type": "module",
-    "scripts": {
-        "start": "bun run src/index.ts"
-    },
-    "dependencies": {
-        "@a2a-js/sdk": "^0.3.4",
-        "@anthropic-ai/sdk": "^0.93.0",
-        "@google/genai": "^1.51.0",
-        "@capakit/sdk": "0.0.6-dev.20260525130617.7cf75746",
-        "@modelcontextprotocol/sdk": "1.29.0",
-        "openai": "^6.3.0",
-        "zod": "4.3.6"
-    },
-    "devDependencies": {
-        "@types/node": "22.12.0",
-        "typescript": "5.5.4"
-    }
+  "dependencies": {
+    "@capakit/sdk": "0.0.6-dev.20260525130617.7cf75746",
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "hono": "latest",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "vite": "5.4.21",
+    "zod": "4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "22.12.0",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@vitejs/plugin-react": "4.3.4",
+    "typescript": "5.5.4"
+  },
+  "name": "local-image-tagger",
+  "private": true,
+  "scripts": {
+    "build": "vite build && tsc --noEmit",
+    "start": "bun run build && bun run src/index.ts"
+  },
+  "type": "module",
+  "version": "0.1.0"
 }

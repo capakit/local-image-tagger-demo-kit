@@ -1,21 +1,21 @@
 version: '1'
 name: local-image-tagger
 options:
-  vision_model:
-    kind: string
-    default: ggml-org/SmolVLM-256M-Instruct-GGUF:Q8_0
-    description: Vision-capable GGUF/Hugging Face model spec used for image tagging.
+  gpu:
+    kind: enum
+    default: metal
+    enum_values:
+    - none
+    - metal
+    description: Local GPU acceleration mode for the bundled llama.cpp dependency.
   llama_context_size:
     kind: number
     default: 8192
     description: Context size passed through to the bundled llama.cpp dependency.
-  gpu:
-    kind: enum
-    enum_values:
-    - none
-    - metal
-    default: metal
-    description: Local GPU acceleration mode for the bundled llama.cpp dependency.
+  vision_model:
+    kind: string
+    default: ggml-org/SmolVLM2-500M-Video-Instruct-GGUF:Q8_0
+    description: Vision-capable GGUF/Hugging Face model spec used for image tagging.
 dependencies:
   llama:
     source: !LocalPackage
@@ -25,15 +25,15 @@ dependencies:
       lifecycle: applied
       profile_name: local
       connectivity: same_host_loopback
-    mount_bindings:
-      models: models
     options:
       default_model:
         from_option: vision_model
-      context_size:
-        from_option: llama_context_size
       gpu:
         from_option: gpu
+      context_size:
+        from_option: llama_context_size
+    mount_bindings:
+      models: models
 host_mounts:
   images:
     usage: Folder of local images to tag
@@ -49,11 +49,12 @@ workloads:
   tagger:
     connections:
     - llama
+    endpoints:
+    - mcp
+    - http
     mounts:
     - mount_mid: images
       access: read_only
-    endpoints:
-    - mcp
     runtime:
       source:
         toolchain: bun
@@ -61,7 +62,7 @@ workloads:
           command: bun install
           allow_network: true
         start:
-          command: bun run src/index.ts
+          command: bun run start
           env_from_options:
             LOCAL_IMAGE_TAGGER_MODEL: vision_model
 expose:
@@ -70,3 +71,7 @@ expose:
   endpoints:
   - mcp
   default_mcp: true
+- path: /
+  target: tagger
+  endpoints:
+  - http

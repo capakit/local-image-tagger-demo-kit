@@ -1,0 +1,16 @@
+tests:
+  - id: tags-fixture-image
+    test: tags fixture image with local vision model
+    exposed_path: /mcp
+    tool: tag_image
+    inputs:
+      image_path: sample.png
+      max_tags: 8
+    verboseOutput:
+      - $.image
+      - $.model
+      - $.tags
+    validations:
+      - $.image.eq("sample.png")
+      - $.model.exists()
+      - $.tags.lenGte(1)
