@@ -75,7 +75,7 @@ Commands
     --mount images=<path-to-images> \
     --mount models=~/.capakit/models
 - Test:
-  capakit test /Users/roman/Code/capakit/demo_kits/local-image-tagger-demo-kit
+  capakit test .
 ```
 
 ## Run
