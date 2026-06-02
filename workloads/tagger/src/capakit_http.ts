@@ -14,6 +14,16 @@ const sourceDir = dirname(fileURLToPath(import.meta.url));
 const clientDistDir = join(sourceDir, "..", "dist", "client");
 
 export function registerHttp(sdk: RunnerSdk): void {
+    const app = createApp(sdk);
+    sdk.mount({
+        protocol: "http",
+        endpoint: endpointPath("/http"),
+        handler: async (request, context) =>
+            app.fetch(requestForMountedApp(request, context)),
+    });
+}
+
+function createApp(sdk: RunnerSdk): Hono {
     const tagger = new LocalImageTagger(sdk);
     const app = new Hono();
 
@@ -72,12 +82,7 @@ export function registerHttp(sdk: RunnerSdk): void {
         return serveClientFile("index.html");
     });
 
-    sdk.mount({
-        protocol: "http",
-        endpoint: endpointPath("/http"),
-        handler: async (request, context) =>
-            app.fetch(requestForMountedApp(request, context)),
-    });
+    return app;
 }
 
 function arrayBufferBody(bytes: Uint8Array): ArrayBuffer {
