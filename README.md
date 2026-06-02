@@ -9,6 +9,8 @@ Local AI app Kit for tagging images from a mounted folder with a local vision mo
 
 ![Local Image Tagger screenshot](screenshot.png)
 
+**Tags:** `web-ui` `vision` `image-tagging` `llama.cpp` `mcp` `local-ai` `react` `vite` `typescript` `bun`
+
 ## What It Does
 
 - Lists images from a read-only local folder.

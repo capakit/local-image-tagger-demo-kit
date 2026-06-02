@@ -26,8 +26,15 @@
     "order": 40,
     "tags": [
       "web-ui",
-      "local-vision",
-      "mcp"
+      "vision",
+      "image-tagging",
+      "llama.cpp",
+      "mcp",
+      "local-ai",
+      "react",
+      "vite",
+      "typescript",
+      "bun"
     ]
   }
 }
