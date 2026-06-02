@@ -7,6 +7,7 @@ import {
     workloadMid,
 } from "@capakit/sdk";
 import type { RunnerSdk } from "@capakit/sdk";
+import { createOaicClient } from "@capakit/sdk/oaic";
 
 const LLAMA_WORKLOAD = workloadMid("llama");
 const LLAMA_ENDPOINT = endpointPath("/oaic");
@@ -63,7 +64,7 @@ export class LocalImageTagger {
     async tagImage(input: TagImageInput): Promise<TagImageResult> {
         const maxTags = clampMaxTags(input.max_tags ?? 12);
         const image = await this.mountedImage(input.image_path);
-        const client = await this.sdk.workloads.oaicClient(LLAMA_WORKLOAD, LLAMA_ENDPOINT);
+        const client = await createOaicClient(this.sdk, LLAMA_WORKLOAD, LLAMA_ENDPOINT);
         const selectedModel =
             input.model ?? process.env.LOCAL_IMAGE_TAGGER_MODEL ?? "local-image-tagger";
         const response = await client.chat.completions.create({

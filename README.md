@@ -1,41 +1,111 @@
-# local-image-tagger
+<!--
+Generated from kit-meta.json by scripts/demo-kit-standard.mjs.
+Update kit-meta.json or capability.yml, then rerun the generator instead of hand-editing generated README sections.
+-->
 
-Local image tagging kit powered by the bundled `llama-cpp-local` kit.
+# Local Image Tagger
 
-## What it exposes
+Local AI app Kit for tagging images from a mounted folder with a local vision model.
 
-- HTTP UI at `/`: browse mounted image files, preview an image, and generate tags.
-- MCP endpoint at `/mcp`: `tag_image` tool for tagging an image by path.
-- Default vision model: `ggml-org/SmolVLM2-500M-Video-Instruct-GGUF:Q8_0`.
+![Local Image Tagger screenshot](screenshot.png)
 
-## Required mounts
+## What It Does
 
-- `images`: read-only folder containing `.jpg`, `.jpeg`, `.png`, or `.webp` files.
-- `models`: read/write cache folder used by the bundled llama.cpp dependency.
+- Lists images from a read-only local folder.
+- Tags selected images with a bundled local vision model dependency.
+- Exposes both a browser UI and an MCP image-tagging tool.
+
+## Technologies
+
+- CapaKit MCP endpoint
+- CapaKit HTTP workload
+- Bundled llama.cpp AI app Kit dependency
+- React
+- Vite
+- TypeScript
+- Bun
+
+## App Kit Info
+
+```text
+AI app Kit: local-image-tagger
+
+Exposes
+- Public path: /mcp
+  Protocols:
+    - Protocol: mcp
+      Path: /mcp
+  Default MCP: yes
+- Public path: /
+  Protocols:
+    - Protocol: http
+      Path: /http
+
+Requires
+Secrets:
+No secrets declared.
+
+Host mounts:
+- images [read_only]
+  Usage: Folder of local images to tag
+
+- models [read_write]
+  Usage: Local GGUF model cache for the bundled llama.cpp dependency
+
+Options:
+- gpu [enum, default=metal, values=none|metal]: Local GPU acceleration mode for the bundled llama.cpp dependency.
+- llama_context_size [number, default=8192]: Context size passed through to the bundled llama.cpp dependency.
+- vision_model [string, default=ggml-org/SmolVLM2-500M-Video-Instruct-GGUF:Q8_0]: Vision-capable GGUF/Hugging Face model spec used for image tagging.
+
+External services
+No external services declared.
+
+AI app Kit dependencies
+- llama: repo package https://github.com/capakit/llama-cpp-local-kit (default bundled AI app Kit)
+  Options passed:
+  - context_size <- option llama_context_size (default: 8192)
+  - default_model <- option vision_model (default: ggml-org/SmolVLM2-500M-Video-Instruct-GGUF:Q8_0)
+  - gpu <- option gpu (default: metal)
+  Mounts passed:
+  - models <- models (Local GGUF model cache for the bundled llama.cpp dependency)
+
+Commands
+- Run:
+  capakit run https://github.com/capakit/local-image-tagger-demo-kit \
+    --mount images=<path-to-images> \
+    --mount models=~/.capakit/models
+- Test:
+  capakit test /Users/roman/Code/capakit/demo_kits/local-image-tagger-demo-kit
+```
 
 ## Run
 
 ```sh
-capakit up . --mount images=/path/to/images --mount models=/path/to/model-cache
+capakit run https://github.com/capakit/local-image-tagger-demo-kit \
+--mount images=<path-to-images> \
+--mount models=~/.capakit/models
 ```
 
-Then open the exposed HTTP URL from `capakit up`, or call the MCP endpoint with:
+## Install As A Skill
 
 ```sh
-capakit mcp list-tools --kit .
+capakit run https://github.com/capakit/local-image-tagger-demo-kit --global-skill codex \
+--mount images=<path-to-images> \
+--mount models=~/.capakit/models
 ```
 
-## Validate workload build
+## Test
 
 ```sh
-capakit exec tagger --mount images=/path/to/images -- bun install
-capakit exec tagger --mount images=/path/to/images -- bun run build
+capakit test .
 ```
 
-## Run capability test
+## Security
 
-The test image is auto-bound from `tests/tags-fixture-image/images`.
+Vault secrets are user-provided secrets available only to trusted integrations such as secure exit nodes. Kit secrets are Kit-local secrets that can be exposed to code workloads.
 
-```sh
-capakit test . --mount models=/path/to/model-cache
-```
+## About CapaKit
+
+CapaKit runs AI app Kits locally with isolated workloads, explicit mounts, and agent-friendly commands. Learn more at https://capakit.com.
+
+More AI app Kits: https://github.com/capakit/apps

@@ -1,5 +1,5 @@
-import { endpointPath } from "@capakit/sdk";
 import type { RunnerSdk } from "@capakit/sdk";
+import { mountMcp } from "@capakit/sdk/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { LocalImageTagger } from "./tagger_core.ts";
@@ -43,9 +43,8 @@ export function registerMcp(sdk: RunnerSdk): void {
         },
     );
 
-    sdk.mount({
-        protocol: "mcp",
-        endpoint: endpointPath("/mcp"),
+    mountMcp(sdk, {
+        endpoint: "/mcp",
         server: mcpServer,
     });
 }

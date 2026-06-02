@@ -18,13 +18,8 @@ options:
     description: Vision-capable GGUF/Hugging Face model spec used for image tagging.
 dependencies:
   llama:
-    source: !LocalPackage
-      path: ../llama-cpp-local
-    target: !BundledChild
-      team_name: local-llama-cpp
-      lifecycle: applied
-      profile_name: local
-      connectivity: same_host_loopback
+    source:
+      package: https://github.com/capakit/llama-cpp-local-kit
     options:
       default_model:
         from_option: vision_model

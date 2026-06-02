@@ -35,7 +35,7 @@ export function registerHttp(sdk: RunnerSdk): void {
             return c.text("missing image path", 400);
         }
         const image = await tagger.readImage(imagePath);
-        return new Response(image.bytes, {
+        return new Response(arrayBufferBody(image.bytes), {
             headers: {
                 "content-type": image.mimeType,
                 "cache-control": "private, max-age=60",
@@ -78,6 +78,12 @@ export function registerHttp(sdk: RunnerSdk): void {
         handler: async (request, context) =>
             app.fetch(requestForMountedApp(request, context)),
     });
+}
+
+function arrayBufferBody(bytes: Uint8Array): ArrayBuffer {
+    const copy = new Uint8Array(bytes.byteLength);
+    copy.set(bytes);
+    return copy.buffer;
 }
 
 function requestForMountedApp(
