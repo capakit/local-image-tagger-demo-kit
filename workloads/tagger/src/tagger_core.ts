@@ -188,7 +188,7 @@ function parseTags(text: string): string[] {
     const tags = parsed ?? text.split(/[,\n]/);
     return tags
         .map((tag) => tag.trim().toLowerCase())
-        .map((tag) => tag.replace(/^["'`-]+|["'`]+$/g, ""))
+        .map((tag) => tag.replace(/^[\s"'`\-[\]()]+|[\s"'`\-[\]()]+$/g, ""))
         .filter(Boolean)
         .filter((tag, index, all) => all.indexOf(tag) === index);
 }

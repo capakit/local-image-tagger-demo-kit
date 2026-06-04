@@ -23,6 +23,8 @@ dependencies:
     options:
       default_model:
         from_option: vision_model
+      hydrate_models:
+        from_option: vision_model
       gpu:
         from_option: gpu
       context_size:
@@ -40,7 +42,7 @@ workloads:
   llama:
     import:
       dependency: llama
-      export: oaic
+      exposed_path: /oaic
   tagger:
     connections:
     - llama
@@ -55,7 +57,6 @@ workloads:
         toolchain: bun
         prepare:
           command: bun install
-          allow_network: true
         start:
           command: bun run start
           env_from_options:
