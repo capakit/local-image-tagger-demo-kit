@@ -1,6 +1,6 @@
 import { endpointPath } from "@capakit/sdk";
-import type { RunnerHttpHandlerContext } from "@capakit/sdk";
-import type { RunnerSdk } from "@capakit/sdk";
+import type { WorkloadHttpHandlerContext } from "@capakit/sdk";
+import type { WorkloadSdk } from "@capakit/sdk";
 import { Hono } from "hono";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,7 +13,7 @@ declare const Bun: {
 const sourceDir = dirname(fileURLToPath(import.meta.url));
 const clientDistDir = join(sourceDir, "..", "dist", "client");
 
-export function registerHttp(sdk: RunnerSdk): void {
+export function registerHttp(sdk: WorkloadSdk): void {
     const app = createApp(sdk);
     sdk.mount({
         protocol: "http",
@@ -23,7 +23,7 @@ export function registerHttp(sdk: RunnerSdk): void {
     });
 }
 
-function createApp(sdk: RunnerSdk): Hono {
+function createApp(sdk: WorkloadSdk): Hono {
     const tagger = new LocalImageTagger(sdk);
     const app = new Hono();
 
@@ -93,7 +93,7 @@ function arrayBufferBody(bytes: Uint8Array): ArrayBuffer {
 
 function requestForMountedApp(
     request: Request,
-    context: RunnerHttpHandlerContext,
+    context: WorkloadHttpHandlerContext,
 ): Request {
     const url = new URL(request.url);
     const endpoint = context.endpoint.toString();

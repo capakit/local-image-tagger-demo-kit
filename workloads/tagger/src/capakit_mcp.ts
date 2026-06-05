@@ -1,10 +1,10 @@
-import type { RunnerSdk } from "@capakit/sdk";
+import type { WorkloadSdk } from "@capakit/sdk";
 import { mountMcp } from "@capakit/sdk/mcp";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 import { LocalImageTagger } from "./tagger_core.ts";
 
-export function registerMcp(sdk: RunnerSdk): void {
+export function registerMcp(sdk: WorkloadSdk): void {
     const tagger = new LocalImageTagger(sdk);
     const mcpServer = new McpServer({
         name: process.env.CAPAKIT_WORKLOAD_MID ?? "local-image-tagger",

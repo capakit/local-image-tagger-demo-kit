@@ -1,8 +1,8 @@
-import { createRunnerSdk } from "@capakit/sdk";
+import { createWorkloadSdk } from "@capakit/sdk";
 import { registerHttp } from "./capakit_http.ts";
 import { registerMcp } from "./capakit_mcp.ts";
 
-const sdk = createRunnerSdk();
+const sdk = createWorkloadSdk();
 sdk.hijackConsoleLogging();
 
 registerMcp(sdk);

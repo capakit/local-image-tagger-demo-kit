@@ -6,7 +6,7 @@ import {
     hostMountMid,
     workloadMid,
 } from "@capakit/sdk";
-import type { RunnerSdk } from "@capakit/sdk";
+import type { WorkloadSdk } from "@capakit/sdk";
 import { createOaicClient } from "@capakit/sdk/oaic";
 
 const LLAMA_WORKLOAD = workloadMid("llama");
@@ -39,7 +39,7 @@ export type TagImageResult = {
 export class LocalImageTagger {
     private readonly imagesRoot: string;
 
-    constructor(private readonly sdk: RunnerSdk) {
+    constructor(private readonly sdk: WorkloadSdk) {
         const imagesMount = sdk.mounts.get(hostMountMid("images"));
         if (!imagesMount) {
             throw new Error("missing required host mount `images`");
