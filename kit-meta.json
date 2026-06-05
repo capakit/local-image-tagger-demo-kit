@@ -10,13 +10,16 @@
     "Exposes both a browser UI and an MCP image-tagging tool."
   ],
   "technologies": [
-    "CapaKit MCP endpoint",
-    "CapaKit HTTP workload",
-    "Bundled llama.cpp AI app Kit dependency",
-    "React",
-    "Vite",
-    "TypeScript",
-    "Bun"
+    "web-ui",
+    "vision",
+    "image-tagging",
+    "llama.cpp",
+    "mcp",
+    "local-ai",
+    "react",
+    "vite",
+    "typescript",
+    "bun"
   ],
   "skillProviders": [
     "codex"
