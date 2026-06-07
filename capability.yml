@@ -19,7 +19,7 @@ options:
 dependencies:
   llama:
     source:
-      package: https://github.com/capakit/llama-cpp-local-kit
+      git: https://github.com/capakit/llama-cpp-local-kit
     options:
       default_model:
         from_option: vision_model
