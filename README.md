@@ -15,7 +15,7 @@ Local AI app Kit for tagging images from a mounted folder with a local vision mo
 - Tags selected images with a bundled local vision model dependency.
 - Exposes both a browser UI and an MCP image-tagging tool.
 
-## Technologies
+## Tags
 
 - web-ui
 - vision
