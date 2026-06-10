@@ -5,7 +5,7 @@ Update kit-meta.json or capability.yml, then rerun the generator instead of hand
 
 # Local Image Tagger
 
-Local AI app Kit for tagging images from a mounted folder with a local vision model.
+Local Kit for tagging images from a mounted folder with a local vision model.
 
 ![Local Image Tagger screenshot](screenshot.png)
 
@@ -28,10 +28,11 @@ Local AI app Kit for tagging images from a mounted folder with a local vision mo
 - typescript
 - bun
 
-## App Kit Info
+## Kit Info
 
 ```text
-AI app Kit: local-image-tagger
+Kit: local-image-tagger
+License: Apache-2.0
 
 Exposes
 - Public path: /mcp
@@ -63,8 +64,8 @@ Options:
 External services
 No external services declared.
 
-AI app Kit dependencies
-- llama: GitHub repo https://github.com/capakit/llama-cpp-local-kit (default bundled AI app Kit)
+Kit dependencies
+- llama: Git repo https://github.com/capakit/llama-cpp-local-kit (default bundled Kit)
   Options passed:
   - context_size <- option llama_context_size (default: 8192)
   - default_model <- option vision_model (default: ggml-org/SmolVLM2-500M-Video-Instruct-GGUF:Q8_0)
@@ -112,5 +113,7 @@ capakit test .
 ```
 
 ## About CapaKit
+
+CapaKit is a free runtime and CLI toolkit for building AI app Kits. When your agent builds, tests, or runs a Kit, it happens in isolation, not on your host.
 
 https://capakit.com

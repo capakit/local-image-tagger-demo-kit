@@ -2,7 +2,7 @@
   "schema": 1,
   "displayName": "Local Image Tagger",
   "repo": "https://github.com/capakit/local-image-tagger-demo-kit",
-  "description": "Local AI app Kit for tagging images from a mounted folder with a local vision model.",
+  "description": "Local Kit for tagging images from a mounted folder with a local vision model.",
   "screenshot": "screenshot.png",
   "whatItDoes": [
     "Lists images from a read-only local folder.",
